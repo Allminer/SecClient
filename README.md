@@ -21,7 +21,7 @@ systemctl restart seclient
 ```bash
 systemctl stop seclient
 ```
-安装好程序以后访问IP网页进行配置端口为21112  http://ip:21112
+安装好程序以后先执行开启服务命令 systemctl start seclient 然后 访问IP网页进行配置端口为21112  http://ip:21112
 
 
 
