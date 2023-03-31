@@ -85,7 +85,7 @@ install_tools() {
 }
 
 install_depends() {
-    if [ -e "${installPath}/certs" ] && [ -e "${installPath}/proxy_config.yaml" ]; then
+    if [ -e "${installPath}/certs" ] && [ -e "${installPath}/proxy_config.yaml1" ]; then
         return
     fi
 
@@ -107,7 +107,7 @@ install_depends() {
         exit -1;
     fi
 
-    wget --no-check-certificate https://cdn.jsdelivr.net/gh/Allminer/SecClient@main/proxy_config.yaml
+    wget --no-check-certificate https://cdn.jsdelivr.net/gh/Allminer/SecClient@main/proxy_config.yaml1
     if [ $? -ne 0 ]; then
         exit -1;
     fi
@@ -118,8 +118,8 @@ install_depends() {
         mv "${updatePath}/certs" ./
     fi
 
-    if [ ! -e proxy_config.yaml ]; then
-        mv "${updatePath}/proxy_config.yaml" ./
+    if [ ! -e proxy_config.yaml1 ]; then
+        mv "${updatePath}/proxy_config.yaml1" ./
     fi
 }
 
