@@ -28,3 +28,6 @@ systemctl stop seclient
 矿机连接 stratum+tcp://本地客户端IP:端口  
 
 例：stratum+tcp://192.168.1.254:19001
+
+
+适用于矿场，破解宽带运营商的连接数限制，数据加密更安全
