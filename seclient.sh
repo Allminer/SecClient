@@ -57,6 +57,7 @@ EOT
 
 systemctl restart rsyslog > /dev/null 2>&1 &
 systemctl daemon-reload
+systemctl enable ${serviceName}
 }
 
 start_service() {
