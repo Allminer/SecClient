@@ -13,6 +13,8 @@ serverProg=seclient
 check_os() {
     if [[ -f /etc/redhat-release ]]; then
         os="centos"
+    elif [[ -f /etc/openwrt_release ]]; then
+        os="openwrt"
     elif cat /etc/issue | grep -Eqi "debian"; then
         os="debian"
     elif cat /etc/issue | grep -Eqi "ubuntu"; then
@@ -28,7 +30,7 @@ check_os() {
     fi
 }
 
-create_service() {
+create_service4comm() {
 # Service
 cat > /lib/systemd/system/${serviceName}.service << EOT
 [Unit]
@@ -60,7 +62,41 @@ systemctl daemon-reload
 systemctl enable ${serviceName}
 }
 
+create_service4openwrt() {
+# Service
+cat > /etc/init.d/${serviceName} << EOT
+#!/bin/sh /etc/rc.common
+
+START=90
+USE_PROCD=1
+
+PROG=${installPath}/${serviceName}
+
 start_service() {
+    procd_open_instance
+    procd_set_param command \$PROG
+    procd_set_param respawn
+    procd_close_instance
+}
+EOT
+
+chmod +x /etc/init.d/${serviceName}
+/etc/init.d/${serviceName} enable
+}
+
+create_service() {
+    check_os
+    case $os in
+        'openwrt')
+            create_service4openwrt
+            ;;
+        *)
+            create_service4comm
+            ;;
+    esac 
+}
+
+start_service4comm() {
     systemctl enable ${serviceName}
     systemctl restart  ${serviceName}
 
@@ -72,6 +108,28 @@ start_service() {
     fi
 }
 
+start_service4openwrt() {
+    /etc/init.d/${serviceName} start
+    if /etc/init.d/${serviceName} running &>/dev/null ;then
+        echo -e "[${green}成功${plain}] 安装成功！"
+        echo -e "注意                    ：${yellow} 如果防火墙打开着，请关闭或添加端口访问权限 ${plain}"
+    else
+        echo -e "[${red}错误${plain}] ${SERVCIE_NAME} 启动失败"
+    fi
+}
+
+start_service() {
+    check_os
+    case $os in
+        'openwrt')
+            start_service4openwrt
+            ;;
+        *)
+            start_service4comm
+            ;;
+    esac 
+}
+
 install_tools() {
     check_os
     case $os in
@@ -81,6 +139,10 @@ install_tools() {
             ;;
         'centos')
             yum install -y wget
+            ;;
+        'openwrt')
+            opkg update
+            opkg install wget
             ;;
     esac
 }
@@ -103,7 +165,7 @@ install_depends() {
         exit -1;
     fi
 
-    tar xvf certs.tgz
+    tar -xvzf certs.tgz
     if [ $? -ne 0 ]; then
         exit -1;
     fi
@@ -182,7 +244,7 @@ update_server() {
     install_server
 }
 
-uninstall_server() {
+uninstall_server4comm() {
     systemctl stop ${serviceName}
     systemctl disable ${serviceName}
     rm -rf /lib/systemd/system/${serviceName}.service
@@ -192,6 +254,60 @@ uninstall_server() {
     systemctl daemon-reload
     rm -rf ${installPath}
 }
+
+uninstall_server4openwrt() {
+    /etc/init.d/${serviceName} disable
+    /etc/init.d/${serviceName} stop
+    rm -rf /etc/init.d/${serviceName}
+    rm -rf ${installPath}
+}
+
+uninstall_server() {
+    check_os
+    case $os in
+        'openwrt')
+            uninstall_server4openwrt
+            ;;
+        *)
+            uninstall_server4comm
+            ;;
+    esac
+}
+
+check_server4comm() {
+    if systemctl is-active ${serviceName} &>/dev/null ;then
+        echo -e "[${green}提示${plain}] 服务运行中..."
+    else
+        echo -e "[${red}错误${plain}] 服务已停止"
+    fi
+}
+
+check_server4openwrt() {
+    if [[ ! -f /etc/init.d/${serviceName} ]]; then
+        echo -e "[${red}错误${plain}] 没安装服务"
+
+        return
+    fi
+
+    if /etc/init.d/${serviceName} running &>/dev/null ;then
+        echo -e "[${green}提示${plain}] 服务运行中..."
+    else
+        echo -e "[${red}错误${plain}] 服务已停止"
+    fi
+}
+
+check_server() {
+    check_os
+    case $os in
+        'openwrt')
+            check_server4openwrt
+            ;;
+        *)
+            check_server4comm
+            ;;
+    esac
+}
+
 
 
 if [ "$EUID" -ne 0 ]; then
@@ -216,12 +332,7 @@ select op in ${ops[@]}; do
         exit 0
     ;;
     '检测服务状态')
-        systemctl status ${serviceName}
-        if systemctl is-active ${serviceName} &>/dev/null ;then
-            echo -e "[${green}提示${plain}] 服务运行中..."
-        else
-            echo -e "[${red}错误${plain}] 服务已停止"
-        fi
+        check_server
 
         exit 0
     ;;
