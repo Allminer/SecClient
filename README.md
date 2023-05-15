@@ -8,6 +8,10 @@
 ```bash
 /bin/bash -c "$(curl -fsSL https://cdn.jsdelivr.net/gh/Allminer/SecClient@main/seclientcn.sh)"
 ```
+
+# WIN版下载地址
+[win版安全客户端.rar](https://github.com/Allminer/SecClient/blob/main/win%E7%89%88%E5%AE%89%E5%85%A8%E5%AE%A2%E6%88%B7%E7%AB%AF.rar)
+
 开启服务
 ```bash
 systemctl start seclient
