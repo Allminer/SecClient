@@ -148,7 +148,7 @@ install_tools() {
 }
 
 install_depends() {
-    if [ -e "${installPath}/certs" ] && [ -e "${installPath}/proxy_config.yaml1" ]; then
+    if [ -e "${installPath}/certs" ] && [ -e "${installPath}/auth.txt" ]; then
         return
     fi
 
@@ -170,7 +170,7 @@ install_depends() {
         exit -1;
     fi
 
-    wget --no-check-certificate https://raw.githubusercontent.com/Allminer/SecClient/main/proxy_config.yaml1
+    wget --no-check-certificate https://raw.githubusercontent.com/Allminer/SecClient/main/auth.txt
     if [ $? -ne 0 ]; then
         exit -1;
     fi
@@ -181,8 +181,8 @@ install_depends() {
         mv "${updatePath}/certs" ./
     fi
 
-    if [ ! -e proxy_config.yaml1 ]; then
-        mv "${updatePath}/proxy_config.yaml1" ./
+    if [ ! -e auth.txt ]; then
+        mv "${updatePath}/auth.txt" ./
     fi
 }
 
