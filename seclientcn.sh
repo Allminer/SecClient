@@ -194,8 +194,33 @@ install_server() {
     fi
     mkdir -p ${updatePath}
 
+    echo " "
+    echo "当前CPU构架 [ $(uname -m) ]"
+    cpu=''
+
+    ops=( 'x86_64'  'arm' 'aarch64' )
+    PS3="请选择CPU构架: "
+    select op in ${ops[@]}; do
+        case ${op} in
+        'x86_64')
+            cpu='x86_64'
+            break
+        ;;
+        'arm')
+            cpu='arm'
+            break
+        ;;
+        'aarch64')
+            cpu='aarch64'
+            break
+        ;;
+        *)
+            echo "请输入正确的序号"
+       esac
+    done
+
     cd ${updatePath}
-    wget --no-check-certificate https://cdn.jsdelivr.net/gh/Allminer/SecClient@main/seclient
+    wget --no-check-certificate https://cdn.jsdelivr.net/gh/Allminer/SecClient@main/seclient-${cpu} -O seclient
     if [ $? -ne 0 ]; then
         exit -1;
     fi
