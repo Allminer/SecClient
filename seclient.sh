@@ -109,7 +109,7 @@ start_service4comm() {
 }
 
 start_service4openwrt() {
-    /etc/init.d/${serviceName} start
+    /etc/init.d/${serviceName} restart
     if /etc/init.d/${serviceName} running &>/dev/null ;then
         echo -e "[${green}成功${plain}] 安装成功！"
         echo -e "注意                    ：${yellow} 如果防火墙打开着，请关闭或添加端口访问权限 ${plain}"
@@ -244,6 +244,7 @@ install_server() {
     mv "${updatePath}/version" "${installPath}/version"
 
     create_service
+    start_service
 }
 
 update_server() {
