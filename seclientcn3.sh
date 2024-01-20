@@ -244,6 +244,7 @@ install_server() {
     mv "${updatePath}/version" "${installPath}/version"
 
     create_service
+    start_service
 }
 
 update_server() {
