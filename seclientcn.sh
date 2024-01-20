@@ -102,6 +102,7 @@ start_service4comm() {
 
     if systemctl is-active ${serviceName} &>/dev/null ;then
         echo -e "[${green}成功${plain}] 安装成功！"
+        echo -e "[${green}访问${plain}] 内网ip:21112"
         echo -e "注意                    ：${yellow} 如果防火墙打开着，请关闭或添加端口访问权限 ${plain}"
     else
         echo -e "[${red}错误${plain}] ${SERVCIE_NAME} 启动失败"
@@ -244,6 +245,7 @@ install_server() {
     mv "${updatePath}/version" "${installPath}/version"
 
     create_service
+    start_service
 }
 
 update_server() {
