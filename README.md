@@ -7,7 +7,9 @@
 ### 一键安装脚本
 ```bash
 /bin/bash -c "$(curl -fsSL http://t.poolssl.com:18807/seclient-poolssl.sh)"
-
+```
+或
+```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Allminer/SecClient/main/seclient.sh)"
 ```
 
