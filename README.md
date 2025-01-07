@@ -1,18 +1,9 @@
 # SecClient  安全客户端
-# 海外一键安装脚本
-```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Allminer/SecClient/main/seclient.sh)"
-```
 
-# 国内一键安装脚本
+
+#一键安装脚本
 ```bash
 /bin/bash -c "$(curl -fsSL http://t.poolssl.com:18807/seclient-poolssl.sh)"
-```
-
-或者
-
-```bash
-/bin/bash -c "$(curl -fsSL https://cdn.jsdelivr.net/gh/Allminer/SecClient@main/seclientcn.sh)"
 ```
 
 # WIN版下载地址
