@@ -1,6 +1,7 @@
 ## SecClient  安全客户端
 ### 适用于矿场本地加密防止中间人攻击，流量卡流量压缩降低带宽占用，降低连接数突破运营商连接数限制
-
+#### **联系方式**
+https://t.me/sslpool
 
 
 
@@ -12,7 +13,7 @@
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Allminer/SecClient/main/seclient.sh)"
 ```
-
+### 客户端常用命令
 开启服务
 ```bash
 systemctl start seclient
@@ -25,7 +26,8 @@ systemctl restart seclient
 ```bash
 systemctl stop seclient
 ```
-安装好程序以后访问IP:21112网页进行配置  http://ip:21112
+
+安装好程序以后访问IP:21112网页进行配置  http://ip:21112   密码默认为123    如果须要修改密码，改写auth.txt
 
 (openwrt系统 systemctl命令无效，须要用安装脚本菜单启动程序)
 
@@ -75,4 +77,5 @@ systemctl stop seclient
 - 本免责声明可能随时更新，用户需自行查阅并遵守最新条款。
 - 使用本软件即视为您已阅读、理解并同意本免责声明。
 
-
+#### **联系方式**
+https://t.me/sslpool
