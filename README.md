@@ -1,8 +1,8 @@
 ## SecClient  安全客户端
 ### 适用于矿场本地加密防止中间人攻击，流量卡流量压缩降低带宽占用，降低连接数突破运营商连接数限制
 #### **联系方式**
-https://t.me/sslpool
 
+https://t.me/Allminer_pro 老群莫名其妙没了，老朋友加新群
 
 
 ### 一键安装脚本
@@ -78,4 +78,4 @@ systemctl stop seclient
 - 使用本软件即视为您已阅读、理解并同意本免责声明。
 
 #### **联系方式**
-https://t.me/sslpool
+https://t.me/Allminer_pro
