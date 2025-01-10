@@ -5,13 +5,14 @@
 https://t.me/Allminer_pro 老群莫名其妙没了，老朋友加新群
 
 
-### 一键安装脚本
+### 一键安装脚本 1659版本服务端,兼容 "新" "老" 版本客户端
+老版本客户端不支持流量压缩
 ```bash
 /bin/bash -c "$(curl -fsSL http://t.poolssl.com:18807/seclient-poolssl.sh)"
 ```
-或
+新版本客户端支持流量压缩，优化弱网条件下网络连接质量，支持客户端和服务器网络状态通知（飞书群组机器人）
 ```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Allminer/SecClient/main/seclient.sh)"
+/bin/bash -c "$(curl -fsSL http://t.poolssl.com:18807/newclient/install.sh)"
 ```
 ### 客户端常用命令
 开启服务
